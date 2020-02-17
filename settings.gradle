@@ -1,0 +1,2 @@
+include ':app', ':domain', ':usecases', ':data'
+rootProject.name='RH Test'
