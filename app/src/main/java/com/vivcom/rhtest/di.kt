@@ -20,14 +20,14 @@ fun Application.initDI() {
     startKoin {
         androidLogger()
         androidContext(this@initDI)
-        modules(listOf(dataModule, scopesModule, appModule))
+        modules(listOf(appModule, dataModule, scopesModule))
     }
 }
 
 private val scopesModule = module {
     scope(named<MainActivity>()) {
-        viewModel { MainViewModel(get()) }
-        scoped { GetAllEmployed(get()) }
+        viewModel { MainViewModel(getAllEmployed = get()) }
+        scoped { GetAllEmployed(employedRepository = get()) }
     }
 }
 
@@ -38,5 +38,5 @@ val appModule = module {
 }
 
 val dataModule = module {
-    factory { EmployedRepository(get()) }
+    factory { EmployedRepository(remoteDataSource = get()) }
 }

@@ -1,12 +1,17 @@
 package com.vivcom.rhtest.data.network
 
+import android.util.Log
 import com.vivcom.data.repository.ResultData
 import retrofit2.Response
 import java.io.IOException
 
-suspend fun <T : Any> safeApiCall(call: suspend () -> ResultData<T>, errorMessage: String): ResultData<T> = try {
+suspend fun <T : Any> safeApiCall(
+    call: suspend () -> ResultData<T>,
+    errorMessage: String
+): ResultData<T> = try {
     call.invoke()
 } catch (e: Exception) {
+    Log.e("safeApiCall", e.message.toString())
     ResultData.Error(IOException(errorMessage, e))
 }
 

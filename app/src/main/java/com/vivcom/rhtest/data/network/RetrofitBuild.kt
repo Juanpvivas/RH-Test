@@ -16,7 +16,7 @@ class RetrofitBuild(baseUrl: String) {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val mosh = Moshi.Builder()
-            .add(EmployedAdapter<Employed>())
+            //.add(EmployedAdapter<Employed>())
             .add(KotlinJsonAdapterFactory())
             .build()
 
