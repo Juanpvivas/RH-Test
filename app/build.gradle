@@ -37,6 +37,8 @@ dependencies {
     implementation androidLibs.values()
     implementation kotlinLibs.values()
     implementation libs.values()
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
     kapt androidKaptLibs.values()
 
     testImplementation testLibs.values()
