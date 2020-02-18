@@ -8,4 +8,8 @@ data class Employed(
     val phone: String,
     val email: String,
     val upperRelation: Int
-)
+){
+    override fun toString(): String {
+        return "nombre:$name, cargo:$position, salario:$salary}"
+    }
+}

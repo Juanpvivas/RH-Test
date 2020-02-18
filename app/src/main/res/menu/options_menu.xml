@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/search"
-        android:title="@string/title_search"
+    <item
+        android:id="@+id/search"
         android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="ifRoom|withText"
-        app:actionViewClass="android.widget.SearchView" />
+        android:title="@string/title_search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/filter_salary_minus_to_mayor"
+        android:title="@string/minus_salary" />
+
+    <item
+        android:id="@+id/filter_salary_mayor_to_minus"
+        android:title="@string/mayor_salary" />
 </menu>

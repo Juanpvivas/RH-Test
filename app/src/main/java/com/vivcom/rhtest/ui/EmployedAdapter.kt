@@ -33,7 +33,7 @@ class EmployedAdapter(private val listener: (Employed) -> Unit) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(employed: Employed) {
-            itemView.txvName.text = employed.name
+            itemView.txvDescription.text = employed.toString()
             itemView.imgAvatar.loadUrl("http://placeimg.com/640/480/tech/${employed.id}")
         }
     }

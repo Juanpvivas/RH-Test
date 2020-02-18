@@ -16,7 +16,7 @@
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/txvName"
+        android:id="@+id/txvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

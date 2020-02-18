@@ -5,6 +5,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +24,15 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val viewModel: MainViewModel by currentScope.viewModel(this)
     private lateinit var adapter: EmployedAdapter
     private var listEmployees: List<Employed> = emptyList()
+    private val listFilter = ArrayList<Employed>()
     private var queryFilter = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(tbProductsNovelties)
         initObservers()
         initRecycler()
-        configToolbar()
         viewModel.getAllEmployed()
     }
 
@@ -45,10 +47,17 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         return true
     }
 
-    private fun configToolbar() {
-        setSupportActionBar(tbProductsNovelties)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var listTemp: List<Employed> = if (queryFilter.isBlank()) listEmployees else listFilter
+
+        listTemp = when (item.itemId) {
+            R.id.filter_salary_mayor_to_minus -> listTemp.sortByMinusSalary().asReversed()
+            R.id.filter_salary_minus_to_mayor -> listTemp.sortByMinusSalary()
+            else -> listEmployees
+        }
+
+        showEmployees(listTemp)
+        return true
     }
 
     private fun initRecycler() {
@@ -59,6 +68,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun initObservers() {
         viewModel.mainStatus.observe(this, Observer(::managementStatus))
         viewModel.listEmployees.observe(this, Observer {
+            progress.visibility = View.GONE
             listEmployees = it
             showEmployees(it)
         })
@@ -96,9 +106,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     @SuppressLint("DefaultLocale")
     private fun filter(query: String?) {
-        val listFilter = ArrayList<Employed>()
+        if (query.isNullOrBlank()) {
+            showEmployees(listEmployees)
+            return
+        }
+        listFilter.clear()
         listEmployees.forEach { employed ->
-            if (employed.name.decapitalize() == query?.decapitalize()) {
+            if (employed.name.decapitalize().contains(query.decapitalize())) {
                 listFilter.add(employed)
             }
         }

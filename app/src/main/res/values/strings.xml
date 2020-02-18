@@ -93,4 +93,7 @@
     <string name="action_settings">Settings</string>
     <string name="search_hint">Digite el nombre del empleado</string>
     <string name="title_search">Buscar</string>
+    <string name="show_all_employees">Show all employees</string>
+    <string name="minus_salary">Minus salary</string>
+    <string name="mayor_salary">Mayor salary</string>
 </resources>
