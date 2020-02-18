@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="base_url">https://raw.githubusercontent.com/slozanomuy/Services/master/</string>
+    <string name="base_url">http://raw.githubusercontent.com/slozanomuy/Services/master/</string>
 </resources>

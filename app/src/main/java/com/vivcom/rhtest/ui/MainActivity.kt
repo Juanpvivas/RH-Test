@@ -1,4 +1,4 @@
-package com.vivcom.rhtest.data.ui
+package com.vivcom.rhtest.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

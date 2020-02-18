@@ -6,8 +6,8 @@ import com.vivcom.data.source.RemoteDataSource
 import com.vivcom.rhtest.data.network.EmployedApi
 import com.vivcom.rhtest.data.network.RemoteDataSourceImpl
 import com.vivcom.rhtest.data.network.RetrofitBuild
-import com.vivcom.rhtest.data.ui.MainActivity
-import com.vivcom.rhtest.data.ui.MainViewModel
+import com.vivcom.rhtest.ui.MainActivity
+import com.vivcom.rhtest.ui.MainViewModel
 import com.vivcom.usecases.GetAllEmployed
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

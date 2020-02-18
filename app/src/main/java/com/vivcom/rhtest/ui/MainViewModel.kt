@@ -1,4 +1,4 @@
-package com.vivcom.rhtest.data.ui
+package com.vivcom.rhtest.ui
 
 import androidx.lifecycle.ViewModel
 import com.vivcom.usecases.GetAllEmployed
