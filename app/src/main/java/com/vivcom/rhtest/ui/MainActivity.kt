@@ -53,6 +53,18 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         listTemp = when (item.itemId) {
             R.id.filter_salary_mayor_to_minus -> listTemp.sortByMinusSalary().asReversed()
             R.id.filter_salary_minus_to_mayor -> listTemp.sortByMinusSalary()
+            R.id.filter_news -> {
+                viewModel.getNewsEmployees(true)
+                listEmployees
+            }
+            R.id.filter_old -> {
+                viewModel.getNewsEmployees(false)
+                listEmployees
+            }
+            R.id.filter_all -> {
+                viewModel.getAllEmployed()
+                listEmployees
+            }
             else -> listEmployees
         }
 

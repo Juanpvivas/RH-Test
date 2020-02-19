@@ -12,6 +12,15 @@ class EmployedDaoDataSource(private val employedDao: EmployedDao) : LocalDataSou
     override suspend fun getAllEmployees(): List<Employed> =
         withContext(Dispatchers.IO) { employedDao.getAll().map { it.toDomainEmployed() } }
 
+    override suspend fun findSubordinatesById(id: Int): List<Employed> =
+        withContext(Dispatchers.IO) {
+            employedDao.getAllSubordinates(id).map { it.toDomainEmployed() }
+        }
+
+    override suspend fun getAllEmployeesByIsNew(isNew: Boolean): List<Employed> =
+        withContext(Dispatchers.IO) {
+            employedDao.getAllEmployeesByIsNew(isNew).map { it.toDomainEmployed() }
+        }
 
     override suspend fun isEmpty(): Boolean =
         withContext(Dispatchers.IO) { employedDao.employedCount() <= 0 }

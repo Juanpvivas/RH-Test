@@ -1,9 +1,9 @@
 package com.vivcom.rhtest.ui.detailEmployed
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.vivcom.domain.Employed
 import com.vivcom.rhtest.R
 import com.vivcom.rhtest.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -17,6 +17,8 @@ class DetailEmployedActivity : AppCompatActivity() {
         const val EMPLOYED = "employed"
     }
 
+    private lateinit var adapter: SubordinatesAdapter
+
     private val viewModel: DetailEmployedViewModel by currentScope.viewModel(this) {
         parametersOf(intent.getIntExtra(EMPLOYED, -1))
     }
@@ -25,12 +27,19 @@ class DetailEmployedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setSupportActionBar(toolbar)
-        iniObservers()
+        initObservers()
         fabIsNew.setOnClickListener { viewModel.onNewEmployedClicked() }
     }
 
-    private fun iniObservers() {
+    private fun initObservers() {
         viewModel.model.observe(this, Observer(::updateUI))
+        viewModel.subordinates.observe(this, Observer(::initRecycler))
+    }
+
+    private fun initRecycler(uiModelList: UiModelList) {
+        adapter = SubordinatesAdapter()
+        rclSubordinates.adapter = adapter
+        adapter.employees = uiModelList.employees
     }
 
     private fun updateUI(modelUI: UiModel) {

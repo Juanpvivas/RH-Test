@@ -4,6 +4,9 @@
     <string name="title_search">Buscar</string>
     <string name="minus_salary">Menor a mayor salario</string>
     <string name="mayor_salary">Mayor a menor salario</string>
+    <string name="news_employees">Empleados nuevos</string>
+    <string name="old_employees">Empleados antiguos</string>
+    <string name="all_employees">Todos empleados</string>
 
     <string name="id">Id: %1$d</string>
     <string name="name">Nombre: %1$s</string>

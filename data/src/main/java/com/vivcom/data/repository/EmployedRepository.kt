@@ -54,4 +54,9 @@ class EmployedRepository(
     suspend fun findEmployedById(id: Int) = localDataSource.findById(id)
 
     suspend fun update(employed: Employed) = localDataSource.update(employed)
+
+    suspend fun findSubordinatesById(id: Int) = localDataSource.findSubordinatesById(id)
+
+    suspend fun getAllEmployedByIsNew(isNew: Boolean) =
+        localDataSource.getAllEmployeesByIsNew(isNew)
 }

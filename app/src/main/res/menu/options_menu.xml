@@ -15,4 +15,16 @@
     <item
         android:id="@+id/filter_salary_mayor_to_minus"
         android:title="@string/mayor_salary" />
+
+    <item
+        android:id="@+id/filter_news"
+        android:title="@string/news_employees" />
+
+    <item
+        android:id="@+id/filter_old"
+        android:title="@string/old_employees" />
+
+    <item
+        android:id="@+id/filter_all"
+        android:title="@string/all_employees" />
 </menu>

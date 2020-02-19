@@ -9,4 +9,6 @@ interface LocalDataSource {
     suspend fun update(employed: Employed)
     suspend fun isEmpty(): Boolean
     suspend fun getAllEmployees(): List<Employed>
+    suspend fun findSubordinatesById(id: Int): List<Employed>
+    suspend fun getAllEmployeesByIsNew(isNew: Boolean): List<Employed>
 }

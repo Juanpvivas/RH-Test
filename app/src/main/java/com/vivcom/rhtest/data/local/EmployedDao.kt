@@ -7,6 +7,9 @@ interface EmployedDao {
     @Query("SELECT * FROM Employed")
     fun getAll(): List<Employed>
 
+    @Query("SELECT * FROM Employed WHERE upperRelation = :id")
+    fun getAllSubordinates(id: Int): List<Employed>
+
     @Query("SELECT * FROM Employed WHERE id = :id")
     fun findById(id: Int): Employed
 
@@ -18,4 +21,7 @@ interface EmployedDao {
 
     @Update
     fun updateEmployed(employed: Employed)
+
+    @Query("SELECT * FROM Employed WHERE isNew = :isNew")
+    fun getAllEmployeesByIsNew(isNew: Boolean): List<Employed>
 }
