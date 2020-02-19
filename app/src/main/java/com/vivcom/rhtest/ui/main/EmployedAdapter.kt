@@ -1,4 +1,4 @@
-package com.vivcom.rhtest.ui
+package com.vivcom.rhtest.ui.main
 
 import android.view.View
 import android.view.ViewGroup
