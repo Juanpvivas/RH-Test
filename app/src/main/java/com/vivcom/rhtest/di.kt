@@ -11,7 +11,11 @@ import com.vivcom.rhtest.data.network.RemoteDataSourceImpl
 import com.vivcom.rhtest.data.network.RetrofitBuild
 import com.vivcom.rhtest.ui.MainActivity
 import com.vivcom.rhtest.ui.MainViewModel
+import com.vivcom.rhtest.ui.detailEmployed.DetailEmployedActivity
+import com.vivcom.rhtest.ui.detailEmployed.DetailEmployedViewModel
+import com.vivcom.usecases.FindEmployedById
 import com.vivcom.usecases.GetAllEmployed
+import com.vivcom.usecases.ToggleNewEmployed
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -31,6 +35,12 @@ private val scopesModule = module {
     scope(named<MainActivity>()) {
         viewModel { MainViewModel(getAllEmployed = get()) }
         scoped { GetAllEmployed(employedRepository = get()) }
+    }
+
+    scope(named<DetailEmployedActivity>()) {
+        viewModel { (id: Int) -> DetailEmployedViewModel(id, findEmployedById = get(), toggleNewEmployed = get()) }
+        scoped { FindEmployedById(employedRepository = get()) }
+        scoped { ToggleNewEmployed(employedRepository = get()) }
     }
 }
 
