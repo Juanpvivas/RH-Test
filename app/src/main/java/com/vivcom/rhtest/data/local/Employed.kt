@@ -1,6 +1,11 @@
-package com.vivcom.domain
+package com.vivcom.rhtest.data.local
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Employed(
+    @PrimaryKey
     val id: Int,
     val name: String,
     val position: String,
@@ -9,6 +14,4 @@ data class Employed(
     val email: String,
     val upperRelation: Int,
     val isNew: Boolean
-) {
-    val description = "nombre: $name, cargo: $position, salario: $salary"
-}
+)

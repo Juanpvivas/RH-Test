@@ -1,33 +1,41 @@
 package com.vivcom.data.repository
 
+import com.vivcom.data.source.LocalDataSource
 import com.vivcom.data.source.RemoteDataSource
 import com.vivcom.domain.Employed
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import kotlin.math.roundToInt
 
-class EmployedRepository(private val remoteDataSource: RemoteDataSource) {
+class EmployedRepository(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
+) {
     suspend fun getAllEmployed(): ResultData<List<Employed>> =
-        withContext(Dispatchers.IO) {
-            when (val result = remoteDataSource.getAllEmployed()) {
-                is ResultData.Success -> {
-                    if (result.data.isNotEmpty()) {
-                        val listEmployed = ArrayList<Employed>()
-                        result.data.keys.forEach { nameEmployed ->
-                            val employed = getDataOfEmployed(
-                                result.data[nameEmployed] as Map<*, *>,
-                                nameEmployed.toString()
-                            )
-                            listEmployed.add(employed)
-                        }
-                        ResultData.Success(listEmployed)
-                    } else {
-                        ResultData.Error(IOException("data vacia"))
+        if (localDataSource.isEmpty()) {
+            callWSGetAllEmployed()
+        } else {
+            ResultData.Success(localDataSource.getAllEmployees())
+        }
+
+    private suspend fun callWSGetAllEmployed(): ResultData<List<Employed>> =
+        when (val result = remoteDataSource.getAllEmployed()) {
+            is ResultData.Success -> {
+                if (result.data.isNotEmpty()) {
+                    val listEmployed = ArrayList<Employed>()
+                    result.data.keys.forEach { nameEmployed ->
+                        val employed = getDataOfEmployed(
+                            result.data[nameEmployed] as Map<*, *>,
+                            nameEmployed.toString()
+                        )
+                        listEmployed.add(employed)
                     }
+                    localDataSource.saveEmployees(listEmployed)
+                    ResultData.Success(listEmployed)
+                } else {
+                    ResultData.Error(IOException("data vacia"))
                 }
-                else -> result as ResultData.Error
             }
+            else -> result as ResultData.Error
         }
 
     private fun getDataOfEmployed(map: Map<*, *>, nameEmployed: String): Employed {
@@ -38,7 +46,12 @@ class EmployedRepository(private val remoteDataSource: RemoteDataSource) {
             salary = map["salary"] as String,
             phone = map["phone"] as String,
             email = map["email"] as String,
-            upperRelation = (map["upperRelation"] as Double).roundToInt()
+            upperRelation = (map["upperRelation"] as Double).roundToInt(),
+            isNew = false
         )
     }
+
+    suspend fun findEmployedById(id: Int) = localDataSource.findById(id)
+
+    suspend fun update(employed: Employed) = localDataSource.update(employed)
 }
