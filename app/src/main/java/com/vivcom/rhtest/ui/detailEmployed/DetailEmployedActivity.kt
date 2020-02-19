@@ -3,7 +3,6 @@ package com.vivcom.rhtest.ui.detailEmployed
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.vivcom.domain.Employed
 import com.vivcom.rhtest.R
 import com.vivcom.rhtest.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*

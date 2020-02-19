@@ -4,11 +4,9 @@ import com.vivcom.data.repository.EmployedRepository
 import com.vivcom.testShared.mockEmployed
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 
 class FindEmployedByIdTest {
