@@ -1,4 +1,4 @@
-package com.vivcom.rhtest.ui
+package com.vivcom.rhtest.ui.main
 
 import com.vivcom.domain.Employed
 import java.lang.Exception

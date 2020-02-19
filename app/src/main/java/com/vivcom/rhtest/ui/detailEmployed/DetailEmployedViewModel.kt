@@ -2,11 +2,11 @@ package com.vivcom.rhtest.ui.detailEmployed
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.vivcom.rhtest.ui.common.ScopedViewModel
 import com.vivcom.usecases.FindEmployedById
 import com.vivcom.usecases.FindSubordinatesById
 import com.vivcom.usecases.ToggleNewEmployed
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class DetailEmployedViewModel(
@@ -15,8 +15,9 @@ class DetailEmployedViewModel(
     private val findSubordinatesById: FindSubordinatesById,
     private val toggleNewEmployed: ToggleNewEmployed,
     private val _model: MutableLiveData<UiModel> = MutableLiveData(),
-    private val _subordinates: MutableLiveData<UiModelList> = MutableLiveData()
-) : ViewModel() {
+    private val _subordinates: MutableLiveData<UiModelList> = MutableLiveData(),
+    override val uiDispatcher: CoroutineDispatcher
+) :  ScopedViewModel(uiDispatcher) {
 
     val model: LiveData<UiModel>
         get() {
@@ -27,14 +28,14 @@ class DetailEmployedViewModel(
     val subordinates: LiveData<UiModelList> = _subordinates
 
     private fun findEmployed() {
-        viewModelScope.launch {
+        launch {
             _model.value = UiModel(findEmployedById.invoke(employedId))
             _subordinates.value = UiModelList(findSubordinatesById.invoke(employedId))
         }
     }
 
     fun onNewEmployedClicked() {
-        viewModelScope.launch {
+        launch {
             _model.value?.employed?.let {
                 _model.value = UiModel(toggleNewEmployed.invoke(it))
             }
