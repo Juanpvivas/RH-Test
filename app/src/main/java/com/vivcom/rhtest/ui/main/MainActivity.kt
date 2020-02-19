@@ -1,4 +1,4 @@
-package com.vivcom.rhtest.ui
+package com.vivcom.rhtest.ui.main
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
@@ -73,7 +73,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun initRecycler() {
-        adapter = EmployedAdapter(viewModel::onEmployedClicked)
+        adapter =
+            EmployedAdapter(viewModel::onEmployedClicked)
         rclEmployees.adapter = adapter
     }
 
