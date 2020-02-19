@@ -50,7 +50,8 @@ private val scopesModule = module {
                 id,
                 findEmployedById = get(),
                 toggleNewEmployed = get(),
-                findSubordinatesById = get()
+                findSubordinatesById = get(),
+                uiDispatcher = get()
             )
         }
         scoped { FindEmployedById(employedRepository = get()) }
