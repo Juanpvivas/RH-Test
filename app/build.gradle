@@ -1,18 +1,26 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
+
+def secretsPropertiesFile = rootProject.file("config.properties")
+def secretProperties = new Properties()
+if (secretsPropertiesFile.exists()) {
+    secretProperties.load(new FileInputStream(secretsPropertiesFile))
+} else {
+    secretProperties.setProperty("STORE_FILE", "${System.getenv('STORE_FILE')}")
+    secretProperties.setProperty("STORE_PASSWORD", "${System.getenv('STORE_PASSWORD')}")
+    secretProperties.setProperty("KEY_ALIAS", "${System.getenv('KEY_ALIAS')}")
+    secretProperties.setProperty("KEY_PASSWORD", "${System.getenv('KEY_PASSWORD')}")
+}
 
 android {
     signingConfigs {
         release {
-            storeFile file("rh_test.jks")
-            storePassword "storeRHTest123"
-            keyAlias "RHTest"
-            keyPassword "aliasRHTest123"
+            storeFile file("${secretProperties['STORE_FILE']}")
+            storePassword "${secretProperties['STORE_PASSWORD']}"
+            keyAlias "${secretProperties['KEY_ALIAS']}"
+            keyPassword "${secretProperties['KEY_PASSWORD']}"
         }
     }
     compileSdkVersion 29
