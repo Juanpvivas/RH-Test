@@ -7,8 +7,16 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file("rh_test.jks")
+            storePassword "storeRHTest123"
+            keyAlias "RHTest"
+            keyPassword "aliasRHTest123"
+        }
+    }
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.vivcom.rhtest"
         minSdkVersion 21
@@ -20,6 +28,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            //Insert keys
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
