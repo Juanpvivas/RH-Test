@@ -8,7 +8,7 @@ def secretProperties = new Properties()
 if (secretsPropertiesFile.exists()) {
     secretProperties.load(new FileInputStream(secretsPropertiesFile))
 } else {
-    secretProperties.setProperty("STORE_FILE", "${System.getenv('BITRISEIO_ANDROID_KEYSTORE_URL')}")
+    secretProperties.setProperty("STORE_FILE", "${System.getenv('$BITRISEIO_ANDROID_KEYSTORE_URL')}")
     secretProperties.setProperty("STORE_PASSWORD", "${System.getenv('STORE_PASSWORD')}")
     secretProperties.setProperty("KEY_ALIAS", "${System.getenv('KEY_ALIAS')}")
     secretProperties.setProperty("KEY_PASSWORD", "${System.getenv('KEY_PASSWORD')}")
