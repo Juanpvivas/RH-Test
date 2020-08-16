@@ -8,7 +8,7 @@ def secretProperties = new Properties()
 if (secretsPropertiesFile.exists()) {
     secretProperties.load(new FileInputStream(secretsPropertiesFile))
 } else {
-    secretProperties.setProperty("STORE_FILE", "${System.getenv('HOME') + '/rh_test.jks'}")
+    secretProperties.setProperty("STORE_FILE", "${System.getenv('HOME') + '/' + System.getenv('STORE_FILE')}")
     secretProperties.setProperty("STORE_PASSWORD", "${System.getenv('BITRISEIO_ANDROID_KEYSTORE_PASSWORD')}")
     secretProperties.setProperty("KEY_ALIAS", "${System.getenv('BITRISEIO_ANDROID_KEYSTORE_ALIAS')}")
     secretProperties.setProperty("KEY_PASSWORD", "${System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")}")
@@ -29,8 +29,8 @@ android {
         applicationId "com.vivcom.rhtest"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
